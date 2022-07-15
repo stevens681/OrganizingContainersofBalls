@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Result {
     /*
@@ -13,29 +10,45 @@ public class Result {
 
     public static String organizingContainers(List<List<Integer>> container) {
         // Write your code here
-        HashSet<Integer> set = new HashSet<>();
+        String res;
+        List<Integer> rowSum =new ArrayList<>();
+        List<Integer> colSum =new ArrayList<>();
 
-        for(int i = 1; i<container.size(); i++){
-            int sumA = 0, sumB = 0;
-            for (int j = 0; j< container.size(); j++){
-                //System.out.println(j+""+i);
-                System.out.println(container.get(j).get(i-1));
+        for(int row = 0; row<container.size(); row++) {
+            int sumR = 0, sumC = 0;
+            for(int col = 0; col<container.get(row).size(); col++) {
 
+                sumR += container.get(row).get(col);
+                sumC += container.get(col).get(row);
 
             }
+            rowSum.add(sumR);
+            colSum.add(sumC);
 
 
         }
-       // System.out.println(set);
-        return "Impossible";
+        Collections.sort(rowSum);
+        Collections.sort(colSum);
+        if(rowSum.equals(colSum))
+            res = "Possible";
+        else
+            res ="Impossible";
+
+        return res;
 
     }
     public static void main(String[] args) {
 
+//        String list = """
+//                0 0 5 0
+//                4 0 0 0
+//                0 2 0 1
+//                0 1 0 2""";
         String list = """
-                0 2 1
-                1 1 1
-                2 0 0""";
+                1 2 1 3
+                2 1 3 1
+                1 3 2 1
+                3 2 1 1""";
         List<List<Integer>> arr = new ArrayList<>();
 
         String[] split = list.split("\n");
